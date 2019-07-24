@@ -11,7 +11,7 @@ local Pipeline(os, arch, version) = {
 	    image: "julia:"+version,
 	    commands: [
 		"ldd $(which julia)",
-		"julia --project=. --check-bounds=yes --color=yes -e 'using FFTW; using Libdl; Libdl.dlopen(FFTW.libfftw3)'",
+		"julia --project=. --check-bounds=yes --color=yes -e 'using Pkg; Pkg.instantiate(); Pkg.build(); using FFTW; using Libdl; Libdl.dlopen(FFTW.libfftw3)'",
 		"julia --project=. --check-bounds=yes --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true); using Pkg; Pkg.build(); Pkg.test(coverage=true)'"
 	    ]
 	}
